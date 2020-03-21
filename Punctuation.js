@@ -23,22 +23,19 @@ class Punctuation {
     clear(target) {
         return target
         .replace(/https?:\/\/(\w+.\w+.\w+)/g, '')
-        .replace(/\s?geocaching\.com/ig, '')
-        .replace(/twitter.com/g, 'twitter')
-        .replace(/cach\.ly/ig, '')
-        .replace(/(\w+\.)me/g, '$1')
         .replace(/\s\.(loc|txt|gpx|png)/g, '')
+        .replace(/\.(com|ly)([\s.,])?/,'$2')
         .replace(/(\S)\.\.\.(\s?)/g, '$1.$2')
-        .replace(/A\.P\.E\./g, 'APE')
-        .replace(/^@@.*/, '')
     }
 
     add(source, target) {
         if (!this.rules) return
+        if (source === target) return
+        if (this.badPunctuation[target]) return
         for(const rule of this.rules) {
-            const m = this.clear(target).match(rule)
-            if (m) {
-                this.badPunctuation[target] =  m.input.length < 20 ? m.input : m.input.substr(m.index - 10, 20)
+            for(const m of  this.clear(target).matchAll(rule)) {
+                if (!this.badPunctuation[target]) this.badPunctuation[target] = []
+                this.badPunctuation[target].push(m.input.length < 20 ? m.input : m.input.substr(m.index - 10, 20))
             }
         }
     }
