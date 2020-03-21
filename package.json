@@ -1,0 +1,19 @@
+{
+  "name": "xliff-analyzer",
+  "version": "1.0.0",
+  "description": "Analyze XLIFF 1.2, and detect possible issues",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Celogeek",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^6.8.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "mustache": "^4.0.1",
+    "xliff": "^4.4.0"
+  }
+}
